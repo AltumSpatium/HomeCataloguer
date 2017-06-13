@@ -1,15 +1,57 @@
 package asm.homecataloguer.core;
 
+import java.util.Date;
+
 import asm.homecataloguer.models.CatalogItem;
 import asm.homecataloguer.models.ContentType;
 
 public abstract class CatalogFile
 {
-	public CatalogItem catalogItem;
+	private CatalogItem catalogItem;
+	
+	public CatalogFile(CatalogItem catalogItem)
+	{
+		this.catalogItem = catalogItem;
+	}
 	
 	public ContentType getContentType()
 	{
 		return catalogItem.getContentType();
+	}
+	
+	public String getTitle()
+	{
+		return catalogItem.getTitle();
+	}
+	
+	public int getSize()
+	{
+		return catalogItem.getSize();
+	}
+	
+	public byte[] getData()
+	{
+		return catalogItem.getData();
+	}
+	
+	public Date getUploadDate()
+	{
+		return catalogItem.getUploadDate();
+	}
+	
+	public int getId()
+	{
+		return catalogItem.getId();
+	}
+	
+	public int getUserId()
+	{
+		return catalogItem.getUserId();
+	}
+	
+	public int getViewsCount()
+	{
+		return catalogItem.getViewsCount();
 	}
 	
 	public static CatalogFile createCatalogFile(CatalogItem item)

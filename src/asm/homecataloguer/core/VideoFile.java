@@ -6,7 +6,7 @@ public class VideoFile extends CatalogFile
 {
 	public VideoFile(CatalogItem catalogItem)
 	{
-		this.catalogItem = catalogItem;
+		super(catalogItem);
 	}
 	
 	@Override

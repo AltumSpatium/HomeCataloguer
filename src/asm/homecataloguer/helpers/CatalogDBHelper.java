@@ -29,7 +29,7 @@ public class CatalogDBHelper
 		
 		try
 		{
-			String query = "SELECT * FROM Catalog;";
+			String query = "SELECT * FROM Catalog ORDER BY viewsCount DESC;";
 			
 			dbConn = DriverManager.getConnection(url, user, password);
 			
@@ -105,5 +105,32 @@ public class CatalogDBHelper
 	{
 		// Add role checking
 		return saveItem(catalogItem);
+	}
+	
+	public boolean increaseViewsCount(int id, int oldViewsCount)
+	{
+		try
+		{
+			String query = "UPDATE Catalog "
+					+ "SET viewsCount=" + (oldViewsCount + 1) + " " 
+					+ "WHERE id=" + id;
+			
+			dbConn = DriverManager.getConnection(url, user, password);
+			
+			Statement statement = dbConn.createStatement();
+			statement.executeQuery(query);
+			
+			return true;
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			
+			return false;
+		}
+		finally
+		{
+			try { dbConn.close(); } catch (SQLException e) {}
+		}
 	}
 }

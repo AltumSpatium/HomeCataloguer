@@ -17,7 +17,7 @@ public class AudioFile extends CatalogFile
 	
 	public AudioFile(CatalogItem catalogItem)
 	{
-		this.catalogItem = catalogItem;
+		super(catalogItem);
 	}
 	
 	@Override
@@ -25,7 +25,7 @@ public class AudioFile extends CatalogFile
 	{
 		try
 		{
-			player = new Player(new ByteArrayInputStream(catalogItem.getData()));
+			player = new Player(new ByteArrayInputStream(getData()));
 			thread = new Thread(new Runnable()
 			{
 				@Override

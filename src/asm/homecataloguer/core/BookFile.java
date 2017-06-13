@@ -6,7 +6,7 @@ public class BookFile extends CatalogFile
 {
 	public BookFile(CatalogItem catalogItem)
 	{
-		this.catalogItem = catalogItem;
+		super(catalogItem);
 	}
 	
 	@Override

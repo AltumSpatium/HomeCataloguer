@@ -9,8 +9,8 @@
 <children>
     <GridPane minHeight="50" >
     	<Label  fx:id="labelTitle" styleClass="fileTitle"/>
-    	<Label  fx:id="labelDate" styleClass="fileField" translateX="145"/>
-    	<Label  fx:id="labelSize" styleClass="fileField" translateX="145" translateY="20"/>
+    	<Label  fx:id="labelDate" styleClass="fileField" translateX="140"/>
+    	<Label  fx:id="labelSize" styleClass="fileField" translateX="140" translateY="20"/>
     	<Label  fx:id="labelType" styleClass="fileField" translateY="20"/>
     </GridPane>
 </children>

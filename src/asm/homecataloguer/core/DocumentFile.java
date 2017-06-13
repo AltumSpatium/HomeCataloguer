@@ -6,7 +6,7 @@ public class DocumentFile extends CatalogFile
 {
 	public DocumentFile(CatalogItem catalogItem)
 	{
-		this.catalogItem = catalogItem;
+		super(catalogItem);
 	}
 	
 	@Override
