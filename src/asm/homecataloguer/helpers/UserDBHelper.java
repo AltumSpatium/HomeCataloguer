@@ -8,9 +8,9 @@ import asm.homecataloguer.models.ContentType;
 
 public class UserDBHelper
 {
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
-/*		System.out.println("Starting");
+		System.out.println("Starting");
 		
 		CatalogDBHelper catalogDBHelper = new CatalogDBHelper();
 		for (CatalogItem item : catalogDBHelper.loadAll())
@@ -24,6 +24,6 @@ public class UserDBHelper
 		for (CatalogItem item : catalogDBHelper.loadAll())
 		{
 			System.out.println(item.getTitle());
-		}*/
-	}
+		}
+	}*/
 }

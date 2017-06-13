@@ -1,0 +1,23 @@
+.fileTitle {
+	-fx-font-size: 11pt;
+	-fx-font-weight: bold;
+	-fx-cell-size: 20;
+	-fx-text-fill: green;
+}
+
+.fileField {
+	-fx-text-fill: black;
+	-fx-font-style: italic;
+}
+
+.cellItem {
+	-fx-padding: 3px;
+}
+
+.cellItem:hover {
+	-fx-background-color: #eee;
+}
+
+.list-cell:selected {
+	-fx-background-color: #eee;
+}
