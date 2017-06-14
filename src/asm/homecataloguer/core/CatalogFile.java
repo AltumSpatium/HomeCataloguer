@@ -34,6 +34,11 @@ public abstract class CatalogFile
 		return catalogItem.getData();
 	}
 	
+	public void setData(byte[] data)
+	{
+		this.catalogItem.setData(data);
+	}
+	
 	public Date getUploadDate()
 	{
 		return catalogItem.getUploadDate();
@@ -71,5 +76,5 @@ public abstract class CatalogFile
 		}
 	}
 	
-	public abstract void show();
+	public abstract void show(Object layout);
 }

@@ -10,7 +10,7 @@ public class BookFile extends CatalogFile
 	}
 	
 	@Override
-	public void show()
+	public void show(Object layout)
 	{
 		
 	}

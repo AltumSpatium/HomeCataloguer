@@ -10,7 +10,7 @@ public class VideoFile extends CatalogFile
 	}
 	
 	@Override
-	public void show()
+	public void show(Object layout)
 	{		
 	}
 	

@@ -17,13 +17,13 @@ import java.sql.PreparedStatement;
 
 public class CatalogDBHelper
 {
-	private final String url = "jdbc:mysql://localhost:3306/homecataloguerdb";
+	private final String url = "jdbc:mysql://localhost:3306/homecataloguerdb?useSSL=false";
 	private final String user = "root";
 	private final String password = "topaz123";
 	
 	private Connection dbConn;
 
-	public ArrayList<CatalogItem> loadAll()
+	public ArrayList<CatalogItem> loadInfo()
 	{
 		ArrayList<CatalogItem> catalog = new ArrayList<CatalogItem>();
 		
@@ -46,12 +46,8 @@ public class CatalogDBHelper
 				String title = result.getString("title");
 				Date uploadDate = result.getDate("uploadDate");
 				
-				Blob dataBlob = result.getBlob("data"); 
-				byte[] data = dataBlob.getBytes(1, (int)dataBlob.length());
-				dataBlob.free();
-				
 				catalog.add(new CatalogItem(id, userId, size, viewsCount,
-						contentType, title, uploadDate, data));
+						contentType, title, uploadDate, null));
 			}
 		}
 		catch (SQLException e)
@@ -64,6 +60,39 @@ public class CatalogDBHelper
 		}
 		
 		return catalog;
+	}
+	
+	public byte[] loadData(int id)
+	{
+		byte[] data = null;
+		
+		try
+		{
+			String query = "SELECT data FROM Catalog WHERE id=" + id;
+			
+			dbConn = DriverManager.getConnection(url, user, password);
+			
+			Statement statement = dbConn.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			
+			while (result.next())
+			{
+				Blob dataBlob = result.getBlob("data"); 
+				data = dataBlob.getBytes(1, (int)dataBlob.length());
+				dataBlob.free();
+			}
+			
+			return data;
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			try { dbConn.close(); } catch (SQLException e) {}
+		}
 	}
 	
 	private boolean saveItem(CatalogItem catalogItem)

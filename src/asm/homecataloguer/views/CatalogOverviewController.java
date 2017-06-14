@@ -2,6 +2,7 @@ package asm.homecataloguer.views;
 
 import asm.homecataloguer.Main;
 import asm.homecataloguer.core.CatalogFile;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
