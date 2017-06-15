@@ -1,7 +1,11 @@
 package asm.homecataloguer.core;
 
+import asm.homecataloguer.annotations.CatalogFileType;
+import asm.homecataloguer.annotations.CreateView;
 import asm.homecataloguer.models.CatalogItem;
+import asm.homecataloguer.models.ContentType;
 
+@CatalogFileType(contentType = ContentType.VIDEO)
 public class VideoFile extends CatalogFile
 {
 	public VideoFile(CatalogItem catalogItem)
@@ -10,6 +14,7 @@ public class VideoFile extends CatalogFile
 	}
 	
 	@Override
+	@CreateView(className = "VideoFile")
 	public void show(Object layout)
 	{		
 	}

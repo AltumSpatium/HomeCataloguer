@@ -4,5 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.42-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/reflections-0.9.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/com.google.common_1.0.0.201004262004.jar"/>
+	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/javassist-3.12.1.GA.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

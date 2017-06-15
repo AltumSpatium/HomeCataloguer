@@ -1,7 +1,9 @@
-package asm.homecataloguer;
+package asm.homecataloguer.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CreateView {}
+public @interface CreateView {
+	String className();
+}

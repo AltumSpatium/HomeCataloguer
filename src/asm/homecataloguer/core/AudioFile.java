@@ -1,7 +1,9 @@
 package asm.homecataloguer.core;
 
-import asm.homecataloguer.CreateView;
+import asm.homecataloguer.annotations.CatalogFileType;
+import asm.homecataloguer.annotations.CreateView;
 import asm.homecataloguer.models.CatalogItem;
+import asm.homecataloguer.models.ContentType;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -15,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+@CatalogFileType(contentType = ContentType.AUDIO)
 public class AudioFile extends CatalogFile
 {
 	private Thread thread;
@@ -61,7 +64,8 @@ public class AudioFile extends CatalogFile
 		thread = null;
 	}
 
-	@CreateView
+	@Override
+	@CreateView(className = "AudioFile")
 	public void show(Object layout)
 	{
 		AudioFile self = this;

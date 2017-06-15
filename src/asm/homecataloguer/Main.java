@@ -34,7 +34,8 @@ public class Main extends Application
 		for (CatalogItem item : catalogItems)
 		{
 			CatalogFile catalogFile = CatalogFile.createCatalogFile(item);
-			catalogFiles.add(catalogFile);
+			if (catalogFile != null)
+				catalogFiles.add(catalogFile);
 		}
 	}
 	

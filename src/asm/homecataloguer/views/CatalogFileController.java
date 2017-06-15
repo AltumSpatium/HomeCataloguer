@@ -1,7 +1,7 @@
 package asm.homecataloguer.views;
 
-import asm.homecataloguer.CreateView;
 import asm.homecataloguer.Main;
+import asm.homecataloguer.annotations.CreateView;
 import asm.homecataloguer.core.CatalogFile;
 import asm.homecataloguer.helpers.CatalogDBHelper;
 
@@ -60,13 +60,19 @@ public class CatalogFileController
 		{
 			if (m.isAnnotationPresent(CreateView.class))
 			{
-				try
+				String annotationClassName = m.getAnnotation(CreateView.class).className();
+				String catalogFileClassName = catalogFile.getClass().getSimpleName();
+				
+				if (annotationClassName.equals(catalogFileClassName))
 				{
-					m.invoke(catalogFile, layout);
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
+					try
+					{
+						m.invoke(catalogFile, layout);
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 				}
 			}
 		}

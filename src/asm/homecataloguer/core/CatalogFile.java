@@ -1,9 +1,14 @@
 package asm.homecataloguer.core;
 
-import java.util.Date;
-
+import asm.homecataloguer.annotations.CatalogFileType;
 import asm.homecataloguer.models.CatalogItem;
 import asm.homecataloguer.models.ContentType;
+
+import java.util.Date;
+import java.util.Set;
+
+import org.reflections.*;
+import org.reflections.scanners.SubTypesScanner;
 
 public abstract class CatalogFile
 {
@@ -61,19 +66,26 @@ public abstract class CatalogFile
 	
 	public static CatalogFile createCatalogFile(CatalogItem item)
 	{
-		switch(item.getContentType())
+		Reflections reflections = new Reflections("asm.homecataloguer.core", new SubTypesScanner(false));
+		Set<Class<? extends CatalogFile>> catalogFileClasses = reflections.getSubTypesOf(CatalogFile.class);
+		
+		for (Class<? extends CatalogFile> c : catalogFileClasses)
 		{
-		case VIDEO:
-			return new VideoFile(item);
-		case AUDIO:
-			return new AudioFile(item);
-		case BOOK:
-			return new BookFile(item);
-		case DOCUMENT:
-			return new DocumentFile(item);
-		default:
-			return null;
+			if (c.isAnnotationPresent(CatalogFileType.class) &&
+					c.getAnnotation(CatalogFileType.class).contentType().equals(item.getContentType()))
+			{
+				try
+				{
+					return c.getConstructor(CatalogItem.class).newInstance(new Object[] { item });
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
+		
+		return null;
 	}
 	
 	public abstract void show(Object layout);
