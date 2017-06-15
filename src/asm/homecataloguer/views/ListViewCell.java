@@ -10,11 +10,12 @@ public class ListViewCell extends ListCell<CatalogFile>
     public void updateItem(CatalogFile catalogFile, boolean empty)
     {
         super.updateItem(catalogFile, empty);
-        if(catalogFile != null)
+        if (catalogFile != null)
         {
             Data data = new Data();
             data.setInfo(catalogFile);
             setGraphic(data.getBox());
         }
+        else setGraphic(null);
     }
 }

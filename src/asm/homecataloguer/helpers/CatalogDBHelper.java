@@ -36,19 +36,7 @@ public class CatalogDBHelper
 			Statement statement = dbConn.createStatement();
 			ResultSet result = statement.executeQuery(query);
 			
-			while (result.next())
-			{
-				int id = result.getInt("id");
-				int userId = result.getInt("userId");
-				int size = result.getInt("size");
-				int viewsCount = result.getInt("viewsCount");
-				ContentType contentType = ContentType.values()[result.getInt("contentType")];
-				String title = result.getString("title");
-				Date uploadDate = result.getDate("uploadDate");
-				
-				catalog.add(new CatalogItem(id, userId, size, viewsCount,
-						contentType, title, uploadDate, null));
-			}
+			loadCursorData(catalog, result);
 		}
 		catch (SQLException e)
 		{
@@ -160,6 +148,30 @@ public class CatalogDBHelper
 		finally
 		{
 			try { dbConn.close(); } catch (SQLException e) {}
+		}
+	}
+		
+	public void loadCursorData(ArrayList<CatalogItem> catalog, ResultSet result)
+	{
+		try
+		{
+			while (result.next())
+			{
+				int id = result.getInt("id");
+				int userId = result.getInt("userId");
+				int size = result.getInt("size");
+				int viewsCount = result.getInt("viewsCount");
+				ContentType contentType = ContentType.values()[result.getInt("contentType")];
+				String title = result.getString("title");
+				Date uploadDate = result.getDate("uploadDate");
+			
+				catalog.add(new CatalogItem(id, userId, size, viewsCount,
+					contentType, title, uploadDate, null));
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 }

@@ -79,14 +79,14 @@ public class AudioFile extends CatalogFile
 
 		Button btnPlay = new Button();
 		btnPlay.setText("Play");
-		btnPlay.setOnMouseClicked(new EventHandler<MouseEvent>()
+/*		btnPlay.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
 			@Override
 			public void handle(MouseEvent mouseEvent)
 			{
 				self.play();
 			}
-		});
+		});*/
 		btnPlay.setAlignment(Pos.BOTTOM_LEFT);
 		AnchorPane.setLeftAnchor(btnPlay, 250.0);
 

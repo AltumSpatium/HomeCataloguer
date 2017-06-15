@@ -7,11 +7,9 @@ import asm.homecataloguer.helpers.CatalogDBHelper;
 
 import java.lang.reflect.Method;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -37,13 +35,8 @@ public class CatalogFileController
 		
 		Button btnBack = new Button();
 		btnBack.setText("Back");
-		btnBack.setOnMouseClicked(new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent mouseEvent)
-			{
-				mainApp.getRootLayout().setCenter(mainApp.getCatalogOverview());
-			}
+		btnBack.setOnMouseClicked((mouseEvent) -> {
+			mainApp.getRootLayout().setCenter(mainApp.getCatalogOverview());
 		});
 		cfLayout.getChildren().add(btnBack);
 		
