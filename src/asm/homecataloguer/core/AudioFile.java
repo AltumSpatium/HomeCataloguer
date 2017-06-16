@@ -21,7 +21,6 @@ import javazoom.jl.player.Player;
 public class AudioFile extends CatalogFile
 {
 	private Thread thread;
-	private MediaPlayer mediaPlayer = null;
 	private Player player = null;
 
 	public AudioFile(CatalogItem catalogItem)

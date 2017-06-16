@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -22,6 +23,12 @@ public class CatalogOverviewController
 	private TextField textFieldSearch;
 	@FXML
 	private Button btnSearch;
+	@FXML
+	private Button btnSignIn;
+	@FXML
+	private Button btnExit;
+	@FXML
+	private Label signLabel;
 	private Main mainApp;
 	
 	private ObservableList<CatalogFile> catalogFiles;
@@ -31,6 +38,8 @@ public class CatalogOverviewController
 	@FXML
 	private void initialize()
 	{
+		btnExit.setVisible(false);
+		
 		listView.setCellFactory(new Callback<ListView<CatalogFile>, ListCell<CatalogFile>>()
 		{
 			@Override
@@ -70,12 +79,33 @@ public class CatalogOverviewController
 			
 			listView.setItems(foundFiles);
 		});
+		
+		btnSignIn.setOnMouseClicked((mouseEvent) -> {
+			mainApp.authorizeUser(this.mainApp.getCurrentUser());
+		});
+		
+		btnExit.setOnMouseClicked((mouseEvent) -> {
+			mainApp.exitUser();
+		});
+	}
+	
+	public void updateSignLabel()
+	{
+		signLabel.setText("You're signed in as " + this.mainApp.getCurrentUser().getUsername());
+	}
+	
+	public void updateSignBtn(boolean visible)
+	{
+		btnSignIn.setVisible(visible);
+		btnExit.setVisible(!visible);
 	}
 	
 	public void setMainApp(Main mainApp)
 	{
 		this.mainApp = mainApp;
 		catalogFiles = this.mainApp.getCatalogFiles();
+		
+		updateSignLabel();
 		listView.setItems(catalogFiles);
 	}
 }

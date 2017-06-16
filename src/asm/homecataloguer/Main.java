@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import asm.homecataloguer.core.CatalogFile;
 import asm.homecataloguer.helpers.CatalogDBHelper;
 import asm.homecataloguer.models.CatalogItem;
+import asm.homecataloguer.models.User;
+import asm.homecataloguer.models.UserRole;
+import asm.homecataloguer.views.AuthorizationController;
 import asm.homecataloguer.views.CatalogFileController;
 import asm.homecataloguer.views.CatalogOverviewController;
 
@@ -22,12 +25,18 @@ public class Main extends Application
 {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private AnchorPane catalogOverview; 
+	private AnchorPane catalogOverview;
+	
+	private CatalogOverviewController coController;
+	
+	private User currentUser;
 	
 	private ObservableList<CatalogFile> catalogFiles = FXCollections.observableArrayList();
 	
 	public Main()
 	{
+		currentUser = new User(-1, UserRole.GUEST, "guest", "");
+		
 		CatalogDBHelper dbHelper = new CatalogDBHelper();
 		ArrayList<CatalogItem> catalogItems = dbHelper.loadInfo();
 		
@@ -84,8 +93,8 @@ public class Main extends Application
 			catalogOverview = (AnchorPane) loader.load();
 			rootLayout.setCenter(catalogOverview);
 			
-			CatalogOverviewController controller = loader.getController();
-			controller.setMainApp(this);
+			coController = loader.getController();
+			coController.setMainApp(this);
 		}
 		catch (IOException e)
 		{
@@ -98,6 +107,26 @@ public class Main extends Application
 		CatalogFileController controller = new CatalogFileController(catalogFile);
 		controller.setMainApp(this);
 		controller.initialize();
+	}
+	
+	public void updateView()
+	{
+		System.out.println(currentUser.getUsername());
+		coController.updateSignBtn(currentUser.getUserRole() == UserRole.GUEST);
+		coController.updateSignLabel();
+	}
+	
+	public void authorizeUser(User currentUser)
+	{
+		AuthorizationController controller = new AuthorizationController(currentUser);
+		controller.setMainApp(this);
+		controller.intitialize();
+	}
+	
+	public void exitUser()
+	{
+		currentUser = new User(-1, UserRole.GUEST, "guest", "");
+		updateView();
 	}
 	
 	public Stage getPrimaryStage()
@@ -113,6 +142,11 @@ public class Main extends Application
 	public AnchorPane getCatalogOverview()
 	{
 		return catalogOverview;
+	}
+	
+	public User getCurrentUser()
+	{
+		return currentUser;
 	}
 	
 	public static void main(String[] args)
