@@ -13,7 +13,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class CatalogOverviewController
@@ -95,10 +94,11 @@ public class CatalogOverviewController
 		signLabel.setText("You're signed in as " + this.mainApp.getCurrentUser().getUsername());
 	}
 	
-	public void updateSignBtn(boolean visible)
+	public void updateBtns(boolean isGuest)
 	{
-		btnSignIn.setVisible(visible);
-		btnExit.setVisible(!visible);
+		btnSignIn.setVisible(isGuest);
+		btnExit.setVisible(!isGuest);
+		btnAdd.setVisible(!isGuest);
 	}
 	
 	public void setMainApp(Main mainApp)

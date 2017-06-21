@@ -4,6 +4,7 @@ import asm.homecataloguer.Main;
 import asm.homecataloguer.helpers.UserDBHelper;
 import asm.homecataloguer.models.User;
 import asm.homecataloguer.models.UserRole;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -79,26 +80,19 @@ public class AuthorizationController
 			String username = tfUsername.getText();
 			String password = tfPassword.getText();
 			if (username.isEmpty() || password.isEmpty())
+				new Alert(Alert.AlertType.WARNING,
+						"Username or password fields must not be empty!").show();
+			else if (password.length() < 8)
+				new Alert(Alert.AlertType.WARNING,
+						"Password must be at least 8 symbols length!").show();
+			else if (registerUser(username, password))
 			{
-				System.out.println("Username or password fields must not be empty!");
-				return;
-			} else if (password.length() < 8)
-			{
-				System.out.println("Password must be at least 8 symbols length!");
-				return;				
-			}
-			
-			if (registerUser(username, password))
-			{
-				System.out.println("Registered");
+				new Alert(Alert.AlertType.INFORMATION, "Registered!").show();
 				mainApp.updateView();
 				mainApp.getRootLayout().setCenter(mainApp.getCatalogOverview());
 			}
-			else
-			{
-				// Change to dialog windows
-				System.out.println("This username is already taken!");
-			}
+			else new Alert(Alert.AlertType.WARNING,
+					"This username is already taken!").show();
 		});
 		AnchorPane.setLeftAnchor(btnRegister, 325.0);
 		AnchorPane.setRightAnchor(btnRegister, 520.0);
@@ -112,26 +106,18 @@ public class AuthorizationController
 			String username = tfUsername.getText();
 			String password = tfPassword.getText();
 			if (username.isEmpty() || password.isEmpty())
+				new Alert(Alert.AlertType.WARNING,
+						"Username or password fields must not be empty!").show();
+			else if (password.length() < 8)
+				new Alert(Alert.AlertType.WARNING,
+						"Password must be at least 8 symbols length!").show();
+			else if (signInUser(username, password))
 			{
-				System.out.println("Username or password fields must not be empty!");
-				return;
-			} else if (password.length() < 8)
-			{
-				System.out.println("Password must be at least 8 symbols length!");
-				return;				
-			}
-				
-			if (signInUser(username, password))
-			{
-				System.out.println("Signed In");
 				mainApp.updateView();
 				mainApp.getRootLayout().setCenter(mainApp.getCatalogOverview());				
 			}
-			else
-			{
-				// Change to dialog windows
-				System.out.println("Incorrect username or password!");
-			}
+			else new Alert(Alert.AlertType.WARNING,
+					"Incorrect username or password!").show();
 		});
 		AnchorPane.setLeftAnchor(btnSignIn, 520.0);
 		AnchorPane.setRightAnchor(btnSignIn, 325.0);

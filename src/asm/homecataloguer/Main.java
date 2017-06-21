@@ -1,9 +1,11 @@
 package asm.homecataloguer;
 
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 import asm.homecataloguer.core.CatalogFile;
 import asm.homecataloguer.helpers.CatalogDBHelper;
+import asm.homecataloguer.helpers.UserDBHelper;
 import asm.homecataloguer.models.CatalogItem;
 import asm.homecataloguer.models.User;
 import asm.homecataloguer.models.UserRole;
@@ -34,7 +36,7 @@ public class Main extends Application
 	
 	public Main()
 	{
-		currentUser = new User(-1, UserRole.GUEST, "guest", "");
+		loadLastUser();
 		
 		CatalogDBHelper dbHelper = new CatalogDBHelper();
 		for (CatalogItem item : dbHelper.loadInfo())
@@ -58,6 +60,9 @@ public class Main extends Application
 		this.primaryStage.setMaxWidth(1015);
 		this.primaryStage.setMinHeight(640);
 		this.primaryStage.setMaxHeight(640);
+		primaryStage.setOnCloseRequest(event -> {
+			saveLastUser();
+		});
 		
 		initRootLayout();
 		showCatalogOverview();
@@ -93,7 +98,7 @@ public class Main extends Application
 			
 			coController = loader.getController();
 			coController.setMainApp(this);
-			coController.updateSignBtn(currentUser.getUserRole() == UserRole.GUEST);
+			coController.updateBtns(currentUser.getUserRole() == UserRole.GUEST);
 		}
 		catch (IOException e)
 		{
@@ -111,8 +116,7 @@ public class Main extends Application
 	
 	public void updateView()
 	{
-		System.out.println(currentUser.getUsername());
-		coController.updateSignBtn(currentUser.getUserRole() == UserRole.GUEST);
+		coController.updateBtns(currentUser.getUserRole() == UserRole.GUEST);
 		coController.updateSignLabel();
 	}
 	
@@ -127,6 +131,26 @@ public class Main extends Application
 	{
 		currentUser = new User(-1, UserRole.GUEST, "guest", "");
 		updateView();
+	}
+	
+	public void saveLastUser()
+	{
+		Preferences prefs = Preferences.userNodeForPackage(Main.class);
+		prefs.put("lastUser", currentUser.getUsername());
+	}
+	
+	public void loadLastUser()
+	{
+		Preferences prefs = Preferences.userNodeForPackage(Main.class);
+		String username = prefs.get("lastUser", "guest");
+		
+		if (username.equals("guest"))
+			currentUser = new User(-1, UserRole.GUEST, "guest", "");
+		else
+		{
+			UserDBHelper helper = new UserDBHelper();
+			currentUser = helper.findUserByUsername(username);
+		}
 	}
 	
 	public Stage getPrimaryStage()
