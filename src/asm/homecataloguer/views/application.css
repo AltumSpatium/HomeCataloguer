@@ -1,11 +1,12 @@
 .fileTitle {
-	-fx-font-size: 11pt;
+	-fx-font-size: 14pt;
 	-fx-font-weight: bold;
 	-fx-cell-size: 20;
 	-fx-text-fill: green;
 }
 
 .fileField {
+	-fx-font-size: 10pt;
 	-fx-text-fill: black;
 	-fx-font-style: italic;
 }

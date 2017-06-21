@@ -6,24 +6,46 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="asm.homecataloguer.views.CatalogOverviewController">
    <children>
-      <SplitPane dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="300.0">
+          <AnchorPane maxWidth="350.0" minHeight="0.0" minWidth="350.0">
                <children>
                   <ListView fx:id="listView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
-                  <TextField fx:id="textFieldSearch" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="205.0" promptText="Enter search query..." />
-                  <Button fx:id="btnSearch" layoutX="226.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
-                  <Button fx:id="btnSignIn" layoutX="226.0" layoutY="359.0" mnemonicParsing="false" text="Sign In" />
-                  <Label fx:id="signLabel" layoutX="14.0" layoutY="363.0" />
-                  <Button fx:id="btnExit" layoutX="226.0" layoutY="359.0" mnemonicParsing="false" text="Exit" />
-               </children></AnchorPane>
+                  <TextField fx:id="textFieldSearch" layoutX="145.0" layoutY="15.0" prefHeight="40.0" prefWidth="380.0" promptText="Enter search query...">
+                     <font>
+                        <Font size="17.0" />
+                     </font></TextField>
+                  <Button fx:id="btnSearch" layoutX="540.0" layoutY="15.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="85.0" text="Search">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="btnSignIn" layoutX="540.0" layoutY="545.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="Sign In">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Label fx:id="signLabel" layoutX="14.0" layoutY="550.0">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <Button fx:id="btnExit" layoutX="540.0" layoutY="545.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="Exit">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="btnAdd" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="85.0" text="Add">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+          </AnchorPane>
         </items>
       </SplitPane>
    </children>

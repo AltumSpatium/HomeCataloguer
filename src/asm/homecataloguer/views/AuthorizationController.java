@@ -6,8 +6,10 @@ import asm.homecataloguer.models.User;
 import asm.homecataloguer.models.UserRole;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 
 public class AuthorizationController
 {
@@ -26,6 +28,11 @@ public class AuthorizationController
 		createAuthView(authLayout);
 		
 		Button btnBack = new Button();
+		btnBack.setPrefWidth(75);
+		btnBack.setPrefHeight(30);
+		btnBack.setLayoutX(10);
+		btnBack.setLayoutY(10);
+		btnBack.setFont(new Font(18));
 		btnBack.setText("Back");
 		btnBack.setOnMouseClicked((mouseEvent) -> {
 			mainApp.getRootLayout().setCenter(mainApp.getCatalogOverview());
@@ -39,33 +46,48 @@ public class AuthorizationController
 	{		
 		Label labelUsername = new Label();
 		labelUsername.setText("Username: ");
+		labelUsername.setFont(new Font(18));
 		AnchorPane.setLeftAnchor(labelUsername, 150.0);
-		AnchorPane.setTopAnchor(labelUsername, 130.0);
+		AnchorPane.setTopAnchor(labelUsername, 250.0);
 		layout.getChildren().add(labelUsername);
 		
 		Label labelPassword = new Label();
 		labelPassword.setText("Password: ");
+		labelPassword.setFont(new Font(18));
 		AnchorPane.setLeftAnchor(labelPassword, 150.0);
-		AnchorPane.setTopAnchor(labelPassword, 160.0);
+		AnchorPane.setTopAnchor(labelPassword, 300.0);
 		layout.getChildren().add(labelPassword);
 		
 		TextField tfUsername = new TextField();
-		AnchorPane.setLeftAnchor(tfUsername, 215.0);
-		AnchorPane.setRightAnchor(tfUsername, 200.0);
-		AnchorPane.setTopAnchor(tfUsername, 127.0);
+		tfUsername.setFont(new Font(18));
+		AnchorPane.setLeftAnchor(tfUsername, 255.0);
+		AnchorPane.setRightAnchor(tfUsername, 255.0);
+		AnchorPane.setTopAnchor(tfUsername, 247.0);
 		layout.getChildren().add(tfUsername);
 
-		TextField tfPassword = new TextField();
-		AnchorPane.setLeftAnchor(tfPassword, 215.0);
-		AnchorPane.setRightAnchor(tfPassword, 200.0);
-		AnchorPane.setTopAnchor(tfPassword, 157.0);
+		PasswordField tfPassword = new PasswordField();
+		tfPassword.setFont(new Font(18));
+		AnchorPane.setLeftAnchor(tfPassword, 255.0);
+		AnchorPane.setRightAnchor(tfPassword, 255.0);
+		AnchorPane.setTopAnchor(tfPassword, 297.0);
 		layout.getChildren().add(tfPassword);
 		
 		Button btnRegister = new Button();
+		btnRegister.setFont(new Font(18));
 		btnRegister.setText("Register");
 		btnRegister.setOnMouseClicked((mouseEvent) -> {
 			String username = tfUsername.getText();
 			String password = tfPassword.getText();
+			if (username.isEmpty() || password.isEmpty())
+			{
+				System.out.println("Username or password fields must not be empty!");
+				return;
+			} else if (password.length() < 8)
+			{
+				System.out.println("Password must be at least 8 symbols length!");
+				return;				
+			}
+			
 			if (registerUser(username, password))
 			{
 				System.out.println("Registered");
@@ -78,15 +100,27 @@ public class AuthorizationController
 				System.out.println("This username is already taken!");
 			}
 		});
-		AnchorPane.setLeftAnchor(btnRegister, 245.0);
-		AnchorPane.setTopAnchor(btnRegister, 187.0);
+		AnchorPane.setLeftAnchor(btnRegister, 325.0);
+		AnchorPane.setRightAnchor(btnRegister, 520.0);
+		AnchorPane.setTopAnchor(btnRegister, 347.0);
 		layout.getChildren().add(btnRegister);
 
 		Button btnSignIn = new Button();
+		btnSignIn.setFont(new Font(18));
 		btnSignIn.setText("Sign In");
 		btnSignIn.setOnMouseClicked((mouseEvent) -> {
 			String username = tfUsername.getText();
 			String password = tfPassword.getText();
+			if (username.isEmpty() || password.isEmpty())
+			{
+				System.out.println("Username or password fields must not be empty!");
+				return;
+			} else if (password.length() < 8)
+			{
+				System.out.println("Password must be at least 8 symbols length!");
+				return;				
+			}
+				
 			if (signInUser(username, password))
 			{
 				System.out.println("Signed In");
@@ -99,9 +133,9 @@ public class AuthorizationController
 				System.out.println("Incorrect username or password!");
 			}
 		});
-		AnchorPane.setLeftAnchor(btnSignIn, 315.0);
-		AnchorPane.setRightAnchor(btnSignIn, 225.0);
-		AnchorPane.setTopAnchor(btnSignIn, 187.0);
+		AnchorPane.setLeftAnchor(btnSignIn, 520.0);
+		AnchorPane.setRightAnchor(btnSignIn, 325.0);
+		AnchorPane.setTopAnchor(btnSignIn, 347.0);
 		layout.getChildren().add(btnSignIn);
 	}
 	

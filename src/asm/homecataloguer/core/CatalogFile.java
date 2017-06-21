@@ -12,56 +12,68 @@ import org.reflections.scanners.SubTypesScanner;
 
 public abstract class CatalogFile
 {
-	private CatalogItem catalogItem;
+	private int id;
+	private int userId;
+	private String title;
+	private ContentType contentType;
+	private int size;
+	private Date uploadDate;
+	private int viewsCount;
+	private byte[] data;
 	
 	public CatalogFile(CatalogItem catalogItem)
 	{
-		this.catalogItem = catalogItem;
+		this.id = catalogItem.getId();
+		this.userId = catalogItem.getUserId();
+		this.title = catalogItem.getTitle();
+		this.contentType = catalogItem.getContentType();
+		this.size = catalogItem.getSize();
+		this.uploadDate = catalogItem.getUploadDate();
 	}
 	
 	public ContentType getContentType()
 	{
-		return catalogItem.getContentType();
+		return contentType;
 	}
 	
 	public String getTitle()
 	{
-		return catalogItem.getTitle();
+		return title;
 	}
 	
 	public int getSize()
 	{
-		return catalogItem.getSize();
+		return size;
 	}
 	
 	public byte[] getData()
 	{
-		return catalogItem.getData();
+		return data;
 	}
 	
 	public void setData(byte[] data)
 	{
-		this.catalogItem.setData(data);
+		this.data = data;
 	}
 	
 	public Date getUploadDate()
 	{
-		return catalogItem.getUploadDate();
+		return uploadDate;
 	}
 	
 	public int getId()
 	{
-		return catalogItem.getId();
+		return id;
 	}
 	
 	public int getUserId()
 	{
-		return catalogItem.getUserId();
+		return userId;
 	}
 	
 	public int getViewsCount()
 	{
-		return catalogItem.getViewsCount();
+		return viewsCount;
 	}
 	
 	public static CatalogFile createCatalogFile(CatalogItem item)

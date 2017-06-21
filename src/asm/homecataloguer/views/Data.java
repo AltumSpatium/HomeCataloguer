@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-import asm.homecataloguer.core.CatalogFile;
+import asm.homecataloguer.models.CatalogItem;
 
 public class Data
 {
@@ -51,16 +51,16 @@ public class Data
     private String formatTitle(String title, int maxLength)
     {
     	if (title.length() > maxLength)
-    		return title.substring(0, 15) + "...";
+    		return title.substring(0, maxLength - 3) + "...";
     	return title;
     }
 
-    public void setInfo(CatalogFile catalogFile)
+    public void setInfo(CatalogItem catalogItem)
     {
-    	String title = formatTitle(catalogFile.getTitle(), 18);
-    	String size = "Size: " + formatSize(catalogFile.getSize());
-    	String date = "Upload date: " + catalogFile.getUploadDate();
-    	String type = "Type: " + catalogFile.getContentType();
+    	String title = formatTitle(catalogItem.getTitle(), 18);
+    	String size = "Size: " + formatSize(catalogItem.getSize());
+    	String date = "Upload date: " + catalogItem.getUploadDate();
+    	String type = "Type: " + catalogItem.getContentType();
     	
         labelTitle.setText(title);
         labelSize.setText(size);

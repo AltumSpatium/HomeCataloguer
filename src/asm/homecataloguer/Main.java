@@ -1,7 +1,6 @@
 package asm.homecataloguer;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import asm.homecataloguer.core.CatalogFile;
 import asm.homecataloguer.helpers.CatalogDBHelper;
@@ -31,26 +30,23 @@ public class Main extends Application
 	
 	private User currentUser;
 	
-	private ObservableList<CatalogFile> catalogFiles = FXCollections.observableArrayList();
+	private ObservableList<CatalogItem> catalogItems = FXCollections.observableArrayList();
 	
 	public Main()
 	{
 		currentUser = new User(-1, UserRole.GUEST, "guest", "");
 		
 		CatalogDBHelper dbHelper = new CatalogDBHelper();
-		ArrayList<CatalogItem> catalogItems = dbHelper.loadInfo();
-		
-		for (CatalogItem item : catalogItems)
+		for (CatalogItem item : dbHelper.loadInfo())
 		{
-			CatalogFile catalogFile = CatalogFile.createCatalogFile(item);
-			if (catalogFile != null)
-				catalogFiles.add(catalogFile);
+			if (item != null)
+				catalogItems.add(item);
 		}
 	}
 	
-	public ObservableList<CatalogFile> getCatalogFiles()
+	public ObservableList<CatalogItem> getCatalogItems()
 	{
-		return catalogFiles;
+		return catalogItems;
 	}
 	
 	@Override
@@ -58,8 +54,10 @@ public class Main extends Application
 	{
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Home Cataloguer");
-		this.primaryStage.setMinWidth(620);
-		this.primaryStage.setMinHeight(440);
+		this.primaryStage.setMinWidth(1015);
+		this.primaryStage.setMaxWidth(1015);
+		this.primaryStage.setMinHeight(640);
+		this.primaryStage.setMaxHeight(640);
 		
 		initRootLayout();
 		showCatalogOverview();
@@ -95,6 +93,7 @@ public class Main extends Application
 			
 			coController = loader.getController();
 			coController.setMainApp(this);
+			coController.updateSignBtn(currentUser.getUserRole() == UserRole.GUEST);
 		}
 		catch (IOException e)
 		{
@@ -102,8 +101,9 @@ public class Main extends Application
 		}
 	}
 	
-	public void openCatalogFile(CatalogFile catalogFile)
+	public void openCatalogItem(CatalogItem catalogItem)
 	{
+		CatalogFile catalogFile = CatalogFile.createCatalogFile(catalogItem);
 		CatalogFileController controller = new CatalogFileController(catalogFile);
 		controller.setMainApp(this);
 		controller.initialize();

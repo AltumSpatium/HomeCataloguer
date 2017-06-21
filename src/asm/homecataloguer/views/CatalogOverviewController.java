@@ -1,7 +1,7 @@
 package asm.homecataloguer.views;
 
 import asm.homecataloguer.Main;
-import asm.homecataloguer.core.CatalogFile;
+import asm.homecataloguer.models.CatalogItem;
 
 import java.util.function.Predicate;
 
@@ -13,12 +13,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class CatalogOverviewController
 {
 	@FXML
-	private ListView<CatalogFile> listView;
+	private ListView<CatalogItem> listView;
 	@FXML
 	private TextField textFieldSearch;
 	@FXML
@@ -28,22 +29,22 @@ public class CatalogOverviewController
 	@FXML
 	private Button btnExit;
 	@FXML
+	private Button btnAdd;
+	@FXML
 	private Label signLabel;
 	private Main mainApp;
 	
-	private ObservableList<CatalogFile> catalogFiles;
+	private ObservableList<CatalogItem> catalogItems;
 	
 	public CatalogOverviewController() {}
 	
 	@FXML
 	private void initialize()
 	{
-		btnExit.setVisible(false);
-		
-		listView.setCellFactory(new Callback<ListView<CatalogFile>, ListCell<CatalogFile>>()
+		listView.setCellFactory(new Callback<ListView<CatalogItem>, ListCell<CatalogItem>>()
 		{
 			@Override
-			public ListCell<CatalogFile> call(ListView<CatalogFile> param)
+			public ListCell<CatalogItem> call(ListView<CatalogItem> param)
 			{
 				ListViewCell cell = new ListViewCell();
 				
@@ -52,8 +53,8 @@ public class CatalogOverviewController
 					{
 						if (mouseEvent.getClickCount() == 2)
 						{
-							CatalogFile catalogFile = cell.getItem();
-							mainApp.openCatalogFile(catalogFile);
+							CatalogItem catalogItem = cell.getItem();
+							mainApp.openCatalogItem(catalogItem);
 						}
 					}
 				});
@@ -63,14 +64,14 @@ public class CatalogOverviewController
 		});
 		
 		textFieldSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-		    if (newValue.isEmpty()) listView.setItems(catalogFiles);
+		    if (newValue.isEmpty()) listView.setItems(catalogItems);
 		});
 		
 		btnSearch.setOnMouseClicked((mouseEvent) -> {
 			String searchText = textFieldSearch.getText().toLowerCase();
-			ObservableList<CatalogFile> foundFiles = catalogFiles.filtered(new Predicate<CatalogFile>() {
+			ObservableList<CatalogItem> foundFiles = catalogItems.filtered(new Predicate<CatalogItem>() {
 				@Override
-				public boolean test(CatalogFile t) {
+				public boolean test(CatalogItem t) {
 					return t.getTitle().toLowerCase().contains(searchText) ||
 						t.getUploadDate().toString().toLowerCase().contains(searchText) ||
 						t.getContentType().toString().toLowerCase().contains(searchText);
@@ -103,9 +104,9 @@ public class CatalogOverviewController
 	public void setMainApp(Main mainApp)
 	{
 		this.mainApp = mainApp;
-		catalogFiles = this.mainApp.getCatalogFiles();
+		catalogItems = this.mainApp.getCatalogItems();
 		
 		updateSignLabel();
-		listView.setItems(catalogFiles);
+		listView.setItems(catalogItems);
 	}
 }

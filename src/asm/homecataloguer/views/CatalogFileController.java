@@ -34,6 +34,11 @@ public class CatalogFileController
 		createCatalogFileView(cfLayout, catalogFile);
 		
 		Button btnBack = new Button();
+		btnBack.setPrefWidth(75);
+		btnBack.setPrefHeight(30);
+		btnBack.setLayoutX(10);
+		btnBack.setLayoutY(10);
+		btnBack.setFont(new Font(18));
 		btnBack.setText("Back");
 		btnBack.setOnMouseClicked((mouseEvent) -> {
 			mainApp.getRootLayout().setCenter(mainApp.getCatalogOverview());

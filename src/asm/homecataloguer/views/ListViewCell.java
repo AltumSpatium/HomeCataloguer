@@ -1,19 +1,18 @@
 package asm.homecataloguer.views;
 
-import asm.homecataloguer.core.CatalogFile;
-
+import asm.homecataloguer.models.CatalogItem;
 import javafx.scene.control.ListCell;
 
-public class ListViewCell extends ListCell<CatalogFile>
+public class ListViewCell extends ListCell<CatalogItem>
 {
     @Override
-    public void updateItem(CatalogFile catalogFile, boolean empty)
+    public void updateItem(CatalogItem catalogItem, boolean empty)
     {
-        super.updateItem(catalogFile, empty);
-        if (catalogFile != null)
+        super.updateItem(catalogItem, empty);
+        if (catalogItem != null)
         {
             Data data = new Data();
-            data.setInfo(catalogFile);
+            data.setInfo(catalogItem);
             setGraphic(data.getBox());
         }
         else setGraphic(null);
