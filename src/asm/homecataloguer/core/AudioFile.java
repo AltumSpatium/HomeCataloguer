@@ -6,7 +6,6 @@ import asm.homecataloguer.models.CatalogItem;
 import asm.homecataloguer.models.ContentType;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -78,6 +77,7 @@ public class AudioFile extends CatalogFile
 
 		Button btnPlay = new Button();
 		btnPlay.setText("Play");
+		btnPlay.setPrefSize(80, 40);
 		btnPlay.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -86,11 +86,12 @@ public class AudioFile extends CatalogFile
 				self.play();
 			}
 		});
-		btnPlay.setAlignment(Pos.BOTTOM_LEFT);
 		AnchorPane.setLeftAnchor(btnPlay, 250.0);
+		AnchorPane.setBottomAnchor(btnPlay, 20.0);
 
 		Button btnStop = new Button();
 		btnStop.setText("Stop");
+		btnStop.setPrefSize(80, 40);
 		btnStop.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -99,8 +100,8 @@ public class AudioFile extends CatalogFile
 				self.stop();
 			}
 		});
-		btnStop.setAlignment(Pos.BOTTOM_RIGHT);
 		AnchorPane.setRightAnchor(btnStop, 250.0);
+		AnchorPane.setBottomAnchor(btnStop, 20.0);
 
 		audioLayout.getChildren().add(btnPlay);
 		audioLayout.getChildren().add(btnStop);
