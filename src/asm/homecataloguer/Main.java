@@ -22,6 +22,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+/*
+ * TODO: 
+ * 	Add catalog files showing and playing
+ * 	Separate view rendering from catalog files *
+ * 	Add file adding possibility
+ * 	Add password encryption
+ * 	Add email notification *
+ * 	Replace DB helpers with Hibernate 
+ * */
+
 public class Main extends Application
 {
 	private Stage primaryStage;

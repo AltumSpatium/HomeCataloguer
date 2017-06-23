@@ -7,5 +7,8 @@
 	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/jl1.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/mysql-connector-java-5.1.42-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/reflections-0.9.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/epublib-core-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="C:/Users/smart/Documents/Java/workspace/HomeCataloguer/lib/epublib-tools-viewer-latest.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

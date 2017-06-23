@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.util.Callback;
 
@@ -65,19 +66,17 @@ public class CatalogOverviewController
 		textFieldSearch.textProperty().addListener((observable, oldValue, newValue) -> {
 		    if (newValue.isEmpty()) listView.setItems(catalogItems);
 		});
+		textFieldSearch.setOnKeyPressed((keyEvent) -> {
+			if (keyEvent.getCode().equals(KeyCode.ENTER))
+			{
+				String searchText = textFieldSearch.getText().toLowerCase();
+				search(searchText);
+			}
+		});
 		
 		btnSearch.setOnMouseClicked((mouseEvent) -> {
 			String searchText = textFieldSearch.getText().toLowerCase();
-			ObservableList<CatalogItem> foundFiles = catalogItems.filtered(new Predicate<CatalogItem>() {
-				@Override
-				public boolean test(CatalogItem t) {
-					return t.getTitle().toLowerCase().contains(searchText) ||
-						t.getUploadDate().toString().toLowerCase().contains(searchText) ||
-						t.getContentType().toString().toLowerCase().contains(searchText);
-				}
-			});
-			
-			listView.setItems(foundFiles);
+			search(searchText);
 		});
 		
 		btnSignIn.setOnMouseClicked((mouseEvent) -> {
@@ -89,9 +88,24 @@ public class CatalogOverviewController
 		});
 	}
 	
+	private void search(String searchText)
+	{
+		ObservableList<CatalogItem> foundFiles = catalogItems.filtered(new Predicate<CatalogItem>() {
+			@Override
+			public boolean test(CatalogItem t) {
+				return t.getTitle().toLowerCase().contains(searchText) ||
+					t.getUploadDate().toString().toLowerCase().contains(searchText) ||
+					t.getContentType().toString().toLowerCase().contains(searchText);
+			}
+		});
+		
+		listView.setItems(foundFiles);
+	}
+	
 	public void updateSignLabel()
 	{
-		signLabel.setText("You're signed in as " + this.mainApp.getCurrentUser().getUsername());
+		signLabel.setText("You're signed in as " +
+				this.mainApp.getCurrentUser().getUsername());
 	}
 	
 	public void updateBtns(boolean isGuest)
