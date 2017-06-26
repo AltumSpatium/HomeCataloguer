@@ -9,4 +9,5 @@ import java.lang.annotation.RetentionPolicy;
 public @interface CatalogFileType
 {
 	ContentType contentType();
+	String[] supportedExt();
 }

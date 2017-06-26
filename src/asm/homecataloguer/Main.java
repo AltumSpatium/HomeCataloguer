@@ -19,13 +19,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
-/*
- * TODO: 
- * 	Add file adding possibility 
- * */
 
 public class Main extends Application
 {
@@ -59,15 +55,17 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Home Cataloguer");
-		this.primaryStage.setMinWidth(1015);
-		this.primaryStage.setMaxWidth(1015);
-		this.primaryStage.setMinHeight(640);
-		this.primaryStage.setMaxHeight(640);
+		primaryStage.setTitle("Home Cataloguer");
+		primaryStage.setMinWidth(1015);
+		primaryStage.setMaxWidth(1015);
+		primaryStage.setMinHeight(640);
+		primaryStage.setMaxHeight(640);
 		primaryStage.setOnCloseRequest(event -> {
 			saveLastUser();
 		});
+		primaryStage.getIcons().add(new Image("file:resources/favicon.ico"));
+		this.primaryStage = primaryStage;
+		
 		
 		initRootLayout();
 		showCatalogOverview();

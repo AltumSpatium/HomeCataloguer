@@ -25,7 +25,7 @@ import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.epub.EpubReader;
 import nl.siegmann.epublib.util.ResourceUtil;
 
-@CatalogFileType(contentType = ContentType.BOOK)
+@CatalogFileType(contentType = ContentType.BOOK, supportedExt = {"epub"})
 public class BookFile extends CatalogFile
 {
 	private TextFlow tfBook;

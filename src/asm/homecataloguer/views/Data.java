@@ -1,6 +1,8 @@
 package asm.homecataloguer.views;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,12 +56,17 @@ public class Data
     		return title.substring(0, maxLength - 3) + "...";
     	return title;
     }
+    
+    private String formatDate(Date date)
+    {
+    	return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
 
     public void setInfo(CatalogItem catalogItem)
     {
     	String title = formatTitle(catalogItem.getTitle(), 18);
     	String size = "Size: " + formatSize(catalogItem.getSize());
-    	String date = "Upload date: " + catalogItem.getUploadDate();
+    	String date = "Upload date: " + formatDate(catalogItem.getUploadDate());
     	String type = "Type: " + catalogItem.getContentType();
     	
         labelTitle.setText(title);

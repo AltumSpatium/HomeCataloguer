@@ -17,7 +17,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
-@CatalogFileType(contentType = ContentType.VIDEO)
+@CatalogFileType(contentType = ContentType.VIDEO, supportedExt = {"mp4"})
 public class VideoFile extends CatalogFile
 {
 	private MediaPlayer player;

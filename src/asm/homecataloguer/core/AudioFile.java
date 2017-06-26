@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-@CatalogFileType(contentType = ContentType.AUDIO)
+@CatalogFileType(contentType = ContentType.AUDIO, supportedExt = {"mp3"})
 public class AudioFile extends CatalogFile
 {
 	private MediaPlayer player;

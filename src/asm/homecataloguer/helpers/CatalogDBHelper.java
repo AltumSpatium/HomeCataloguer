@@ -3,8 +3,10 @@ package asm.homecataloguer.helpers;
 import asm.homecataloguer.models.CatalogItem;
 import asm.homecataloguer.models.ContentType;
 import asm.homecataloguer.models.User;
+import asm.homecataloguer.models.UserRole;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import java.sql.Blob;
@@ -13,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.sql.PreparedStatement;
 
 public class CatalogDBHelper
@@ -93,7 +96,7 @@ public class CatalogDBHelper
 			
 			dbConn = DriverManager.getConnection(url, user, password);
 			
-			PreparedStatement preparedStatement = dbConn.prepareStatement(query);
+			PreparedStatement preparedStatement = dbConn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, catalogItem.getUserId());
 			preparedStatement.setInt(2, catalogItem.getSize());
 			preparedStatement.setInt(3, catalogItem.getViewsCount());
@@ -102,6 +105,10 @@ public class CatalogDBHelper
 			preparedStatement.setDate(6, new java.sql.Date(catalogItem.getUploadDate().getTime()));
 			preparedStatement.setBlob(7, new javax.sql.rowset.serial.SerialBlob(catalogItem.getData()));
 			preparedStatement.executeUpdate();
+			
+			ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+			if (generatedKeys.next())
+				catalogItem.setId(generatedKeys.getInt(1));
 			
 			return true;
 			
@@ -118,10 +125,93 @@ public class CatalogDBHelper
 		}
 	}
 	
+	private String getDayBeforeDate(Date date)
+	{
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_YEAR,-1);
+		Date oneDayBefore = calendar.getTime();
+		
+		return new SimpleDateFormat("yyyy-MM-dd").format(oneDayBefore);	
+	}
+	
+	private int getUserUploadSize(User currUser)
+	{
+		int uploadSize = 0;
+		
+		try
+		{
+			String currDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			String dayBeforeDate = getDayBeforeDate(new Date());
+			
+			String query = "SELECT SUM(size) as sum FROM Catalog WHERE "
+					+ "userId=" + currUser.getId() + " AND "
+					+ "uploadDate BETWEEN '" + dayBeforeDate + "' AND '" + currDate + "'";
+			
+			dbConn = DriverManager.getConnection(url, user, password);
+			
+			Statement statement = dbConn.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			
+			if (result.next())
+				uploadSize = result.getInt("sum");
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try { dbConn.close(); } catch (SQLException e) {}
+		}
+		
+		return uploadSize;
+	}
+	
 	public boolean saveItem(CatalogItem catalogItem, User user)
 	{
-		// Add role checking
+		int dailyQuota = 10485760;
+		
+		if (user.getUserRole().equals(UserRole.USER))
+		{
+			int uploadSize = getUserUploadSize(user);
+			if (uploadSize > dailyQuota || (uploadSize + catalogItem.getSize()) > dailyQuota)
+				return false;
+		}
+		
 		return saveItem(catalogItem);
+	}
+	
+	private boolean deleteItem(CatalogItem catalogItem)
+	{
+		try
+		{
+			String query = "DELETE FROM Catalog WHERE id=" + catalogItem.getId();
+			
+			dbConn = DriverManager.getConnection(url, user, password);
+			
+			Statement statement = dbConn.createStatement();
+			statement.executeUpdate(query);
+			
+			return true;
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		finally
+		{
+			try { dbConn.close(); } catch (SQLException e) {}
+		}
+	}
+	
+	public boolean deleteItem(CatalogItem catalogItem, User user)
+	{
+		if (user.getUserRole().equals(UserRole.GUEST))
+			return false;
+		
+		return deleteItem(catalogItem);
 	}
 	
 	public boolean increaseViewsCount(int id, int oldViewsCount)

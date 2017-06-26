@@ -5,5 +5,6 @@ public enum ContentType
 	DOCUMENT,
 	BOOK,
 	AUDIO,
-	VIDEO
+	VIDEO,
+	UNKNOWN
 }

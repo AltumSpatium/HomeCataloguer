@@ -17,7 +17,7 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 
-@CatalogFileType(contentType = ContentType.DOCUMENT)
+@CatalogFileType(contentType = ContentType.DOCUMENT, supportedExt = {"docx"})
 public class DocumentFile extends CatalogFile
 {
 	public DocumentFile(CatalogItem catalogItem)
