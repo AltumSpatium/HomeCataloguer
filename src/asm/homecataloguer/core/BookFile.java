@@ -53,7 +53,7 @@ public class BookFile extends CatalogFile
 	private Text processRow(TextRow row)
 	{
 		Text text = row.getText();
-		text.wrappingWidthProperty().add(600);
+		//text.wrappingWidthProperty().add(600);
 		text.setFont(row.getFont());
 		
 		return text;
@@ -62,7 +62,7 @@ public class BookFile extends CatalogFile
 	private ArrayList<ArrayList<Text>> createPages(Book book)
 	{
 		ArrayList<ArrayList<Text>> pages = new ArrayList<>();
-		int pageSize = 600;
+		int pageSize = 700;
 		
 		ArrayList<Text> page = new ArrayList<>();
 		int symbolsCount = 0;
@@ -76,7 +76,8 @@ public class BookFile extends CatalogFile
 				{
 					Text text = processRow(rows.get(i));
 					String rowText = text.getText();
-					int lineSymbolsCount = rowText.equals("\n") ? 85 : rowText.length();
+					
+					int lineSymbolsCount = rowText.equals("\n") ? 105 : rowText.length();
 					
 					symbolsCount += lineSymbolsCount;
 					if (symbolsCount > pageSize)

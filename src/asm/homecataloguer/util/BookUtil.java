@@ -64,11 +64,11 @@ public class BookUtil {
 		case "p":
 			return new TextRow("\t" + node.getTextContent() + "\n", new Font(13));
 		case "h1":
-			return new TextRow("\n" + node.getTextContent() + "\n", new Font(20));
+			return new TextRow(node.getTextContent() + "\n", new Font(20));
 		case "h2":
-			return new TextRow("\n" + node.getTextContent() + "\n", new Font(18));
+			return new TextRow(node.getTextContent() + "\n", new Font(18));
 		case "h5":
-			return new TextRow("\n" + node.getTextContent() + "\n", new Font(11));
+			return new TextRow(node.getTextContent() + "\n", new Font(11));
 		default:
 			return new TextRow("\t" + node.getTextContent() + " ");
 		}

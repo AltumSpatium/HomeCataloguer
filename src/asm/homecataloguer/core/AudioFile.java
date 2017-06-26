@@ -50,10 +50,6 @@ public class AudioFile extends CatalogFile
 		thread.start();
 	}
 
-	public void pause()
-	{
-	}
-
 	public void stop()
 	{
 		if (thread == null) return;
