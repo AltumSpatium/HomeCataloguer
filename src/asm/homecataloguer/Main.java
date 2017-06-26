@@ -63,7 +63,7 @@ public class Main extends Application
 		primaryStage.setOnCloseRequest(event -> {
 			saveLastUser();
 		});
-		primaryStage.getIcons().add(new Image("file:resources/favicon.ico"));
+		primaryStage.getIcons().add(new Image("file:resources/icon.png"));
 		this.primaryStage = primaryStage;
 		
 		

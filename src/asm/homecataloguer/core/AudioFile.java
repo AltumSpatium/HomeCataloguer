@@ -29,7 +29,7 @@ public class AudioFile extends CatalogFile
 	public File openAudio()
 	{
 		byte[] audioData = getData();
-		File audioFile = new File("resources/audio.mp3");
+		File audioFile = new File("c:/ProgramData/HomeCataloguer/audio.mp3");
 		
 		try
 		{

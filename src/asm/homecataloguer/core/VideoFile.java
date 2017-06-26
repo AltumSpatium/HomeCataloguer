@@ -30,7 +30,7 @@ public class VideoFile extends CatalogFile
 	public File openVideo()
 	{
 		byte[] videoData = getData();
-		File videoFile = new File("resources/video.mp4");
+		File videoFile = new File("c:/ProgramData/HomeCataloguer/video.mp4");
 		
 		try
 		{

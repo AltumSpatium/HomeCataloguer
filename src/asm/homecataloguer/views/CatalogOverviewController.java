@@ -175,9 +175,11 @@ public class CatalogOverviewController
 	
 	private void search(String searchText)
 	{
-		ObservableList<CatalogItem> foundFiles = catalogItems.filtered(new Predicate<CatalogItem>() {
+		ObservableList<CatalogItem> foundFiles = catalogItems.filtered(new Predicate<CatalogItem>()
+		{
 			@Override
-			public boolean test(CatalogItem t) {
+			public boolean test(CatalogItem t)
+			{
 				return t.getTitle().toLowerCase().contains(searchText) ||
 					t.getUploadDate().toString().toLowerCase().contains(searchText) ||
 					t.getContentType().toString().toLowerCase().contains(searchText);
