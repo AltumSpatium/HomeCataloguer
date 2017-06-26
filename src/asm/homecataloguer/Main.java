@@ -24,12 +24,7 @@ import javafx.scene.layout.BorderPane;
 
 /*
  * TODO: 
- * 	Add catalog files showing and playing
- * 	Separate view rendering from catalog files *
- * 	Add file adding possibility
- * 	Add password encryption
- * 	Add email notification *
- * 	Replace DB helpers with Hibernate 
+ * 	Add file adding possibility 
  * */
 
 public class Main extends Application

@@ -9,53 +9,73 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.ByteArrayInputStream;
-
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 @CatalogFileType(contentType = ContentType.AUDIO)
 public class AudioFile extends CatalogFile
 {
-	private Thread thread;
-	private Player player = null;
+	private MediaPlayer player;
 
 	public AudioFile(CatalogItem catalogItem)
 	{
 		super(catalogItem);
 	}
+	
+	public File openAudio()
+	{
+		byte[] audioData = getData();
+		File audioFile = new File("resources/audio.mp3");
+		
+		try
+		{
+			OutputStream os = new FileOutputStream(audioFile);
+			os.write(audioData);
+			os.close();
+			
+			return audioFile;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void loadMedia()
+	{
+		Media media = null;
+		try
+		{
+			File video = openAudio();
+			String url = video.toURI().toURL().toString();
+			media = new Media(url);
+				
+			player = new MediaPlayer(media);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}		
+	}
 
 	public void play()
 	{
-		if (thread != null) return;
-		
-		thread = new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				try
-				{
-					player = new Player(new ByteArrayInputStream(getData()));
-					player.play();
-				} catch (JavaLayerException e)
-				{
-					e.printStackTrace();
-					player = null;
-				}	
-			}
-		});
-		thread.start();
+		player.play();
+	}
+	
+	public void pause()
+	{
+		player.pause();
 	}
 
 	public void stop()
 	{
-		if (thread == null) return;
-		
-		thread.stop();
-		thread = null;
+		player.stop();
 	}
 
 	@Override
@@ -63,6 +83,7 @@ public class AudioFile extends CatalogFile
 	public void show(Object layout)
 	{
 		AudioFile self = this;
+		loadMedia();
 
 		AnchorPane audioLayout = new AnchorPane();
 		audioLayout.setMinWidth(200);
@@ -84,6 +105,20 @@ public class AudioFile extends CatalogFile
 		});
 		AnchorPane.setLeftAnchor(btnPlay, 250.0);
 		AnchorPane.setBottomAnchor(btnPlay, 20.0);
+		
+		Button btnPause = new Button();
+		btnPause.setText("Pause");
+		btnPause.setPrefSize(80, 40);
+		btnPause.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent mouseEvent)
+			{
+				self.pause();
+			}
+		});
+		AnchorPane.setLeftAnchor(btnPause, 455.0);
+		AnchorPane.setBottomAnchor(btnPause, 20.0);
 
 		Button btnStop = new Button();
 		btnStop.setText("Stop");
@@ -101,6 +136,7 @@ public class AudioFile extends CatalogFile
 
 		audioLayout.getChildren().add(btnPlay);
 		audioLayout.getChildren().add(btnStop);
+		audioLayout.getChildren().add(btnPause);
 		((AnchorPane) layout).getChildren().add(audioLayout);
 	}
 }

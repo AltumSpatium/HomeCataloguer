@@ -53,7 +53,6 @@ public class BookFile extends CatalogFile
 	private Text processRow(TextRow row)
 	{
 		Text text = row.getText();
-		//text.wrappingWidthProperty().add(600);
 		text.setFont(row.getFont());
 		
 		return text;
